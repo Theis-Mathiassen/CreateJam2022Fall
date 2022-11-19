@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Entered");
+        //print("Entered");
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-        print("Stayed");
+        //print("Stayed");
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
@@ -93,12 +93,12 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionExit2D(Collision2D collision)
     {
-        print("Exited");
+        //print("Exited");
         if (collision.gameObject.CompareTag("Ground"))
         {
             //isGrounded = false;
         }
-        print(isGrounded);
+        //print(isGrounded);
     }
 
 }
