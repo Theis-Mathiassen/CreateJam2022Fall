@@ -47,7 +47,10 @@ abstract public class Carriage : MonoBehaviour
     public virtual void StartEffect () {
         if (EffectActive == false) {
             EffectActive = true;
-            GetComponent<AudioSource>().Play();
+            foreach(AudioSource AS in GetComponents<AudioSource>()) {
+                print("Playing");
+                AS.Play();
+            }
             StartCoroutine("StopEffect");
         }
     }

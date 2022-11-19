@@ -7,7 +7,7 @@ public class NitrogenCarriage : Carriage
     void Start () {
         print("StartNitro");
         //Texture2D texture = Resources.Load("Texture") as Texture2D;
-        Sprite sprite = Resources.Load<Sprite>("Assets/Sprites/Player/Carriage.png");
+        Sprite sprite = Resources.Load<Sprite>("Carriage");
         print(sprite);
         this.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
