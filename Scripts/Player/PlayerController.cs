@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     //Engine power
     private float _EnginePower;
-    private float EnginePower {
+    public float EnginePower {
         get{
             return _EnginePower;
         } set {

@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
         TargetOffset = ConstantOffSet;
         if (UseMoveBasedOffset) {
             TargetOffset.x = TargetOffset.x + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.x * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
+            TargetOffset.y = TargetOffset.y + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.y * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
         }
         currentOffset = currentOffset + ((TargetOffset-currentOffset) * OffsetSoftness);
         Vector3 diff = (Target.position+currentOffset)-transform.position;

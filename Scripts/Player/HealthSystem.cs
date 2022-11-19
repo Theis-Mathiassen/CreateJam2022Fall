@@ -21,14 +21,18 @@ public class HealthSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         print(rb);
         GameObject prev = null;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             Vector3 pos = transform.position + new Vector3(-CarriageOffset * i - firstCarriageOffset, 0, 0);
             print(pos);
             GameObject current = GameObject.Instantiate(CarriagePrefab, pos, new Quaternion());
             carriages.Add(current);
             if (i == 0) {
+                current.AddComponent<NitrogenCarriage>();
+                current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = rb;
             } else {
+                current.AddComponent<PartyCarriage>();
+                current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = prev.GetComponent<Rigidbody2D>();
             }
 
@@ -39,14 +43,35 @@ public class HealthSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.position.y > -2){
+            ApplyRandomCarriageEffect();
+        }
     }
 
 
     public void TakeDamage () {
         if (LastDamaged + ImmuneTime < Time.time) {
-            carriages.RemoveAt(carriages.Count - 1);
-            LastDamaged = Time.time;
+            if (carriages.Count == 0) {
+                //Destroy(this.gameObject);
+                //Gameover
+
+
+            } else {
+
+                GameObject carriage = carriages[carriages.Count - 1];
+                carriages.Remove(carriage);
+                LastDamaged = Time.time;
+                ExplodeCarriage(carriage);
+            }
         }
+    }
+
+
+    public void ExplodeCarriage (GameObject carriage) {
+        carriage.GetComponent<Carriage>().Explode();
+    }
+
+    public void ApplyRandomCarriageEffect () {
+        carriages[Random.Range(0, carriages.Count)].GetComponent<Carriage>().StartEffect();
     }
 }
