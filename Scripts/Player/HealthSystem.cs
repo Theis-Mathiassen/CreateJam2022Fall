@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    
     public Rigidbody2D rb;
     public List<GameObject> carriages;
     public GameObject CarriagePrefab;
@@ -21,17 +22,17 @@ public class HealthSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         print(rb);
         GameObject prev = null;
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             Vector3 pos = transform.position + new Vector3(-CarriageOffset * i - firstCarriageOffset, 0, 0);
             print(pos);
             GameObject current = GameObject.Instantiate(CarriagePrefab, pos, new Quaternion());
             carriages.Add(current);
             if (i == 0) {
-                current.AddComponent<NitrogenCarriage>();
+                current.AddComponent<BoosterCarriage>();
                 current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = rb;
             } else {
-                current.AddComponent<PartyCarriage>();
+                current.AddComponent<BoosterCarriage>();
                 current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = prev.GetComponent<Rigidbody2D>();
             }
@@ -44,7 +45,10 @@ public class HealthSystem : MonoBehaviour
     void Update()
     {
         if (transform.position.y > -2){
-            ApplyRandomCarriageEffect();
+            if (IsEffectActive() == false) {
+                ApplyRandomCarriageEffect();
+            }
+            TakeDamage();
         }
     }
 
@@ -73,5 +77,14 @@ public class HealthSystem : MonoBehaviour
 
     public void ApplyRandomCarriageEffect () {
         carriages[Random.Range(0, carriages.Count)].GetComponent<Carriage>().StartEffect();
+    }
+
+    private bool IsEffectActive () {
+        foreach (GameObject carriage in carriages) {
+            if (carriage.GetComponent<Carriage>().IsEffectActive()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

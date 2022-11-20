@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class NitrogenCarriage : Carriage
 {
-    void Start () {
+    protected override void Start () {
         print("StartNitro");
         //Texture2D texture = Resources.Load("Texture") as Texture2D;
-        Sprite sprite = Resources.Load<Sprite>("Carriage");
-        print(sprite);
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+        base.Start();
     }
     protected override void ApplyEffect()
     {
@@ -18,18 +16,11 @@ public class NitrogenCarriage : Carriage
     public override void StartEffect () {
         if (EffectActive == false) {
             Player.GetComponent<PlayerController>().EnginePower = 0;
-            EffectActive = true;
-            GetComponent<AudioSource>().Play();
-            StartCoroutine("StopEffect");
+            base.StartEffect();
         }
     }
     protected override IEnumerator StopEffect () {
-        
-        yield return new WaitForSeconds(5);
-
-        if (EffectActive == true) {
-            GetComponent<AudioSource>().Stop();
-            EffectActive = false;
-        }
+         
+        yield return base.StopEffect();
     }
 }

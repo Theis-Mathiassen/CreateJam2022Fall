@@ -6,22 +6,36 @@ using UnityEngine;
 abstract public class Carriage : MonoBehaviour
 {
     //public Transform target;
-    public float FollowSpeed;
+    //public float FollowSpeed;
 
     private bool IsExploded = false;
 
     public GameObject Player;
+    public GameObject People;
+    public GameObject Background;
+    public Sprite[] sprites;
 
     protected bool EffectActive = false;
 
+    
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        sprites = Resources.LoadAll<Sprite>("CarriageParty-Sheet");
+        print(sprites);
+        List<GameObject> children = GetAllChilds(this.gameObject);
+        People = children[0];
+        Background = children[1];
+        Sprite sprite = Resources.Load<Sprite>("Carriage");
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+        People.GetComponent<SpriteRenderer>().sprite = sprites[4];
+        Background.GetComponent<SpriteRenderer>().sprite = sprites[4];
         //StartEffect();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         //print(EffectActive);
         if (EffectActive) {
@@ -60,9 +74,29 @@ abstract public class Carriage : MonoBehaviour
         yield return new WaitForSeconds(5);
 
         if (EffectActive == true) {
-            GetComponent<AudioSource>().Stop();
+            foreach(AudioSource AS in GetComponents<AudioSource>()) {
+                print("Playing");
+                AS.Stop();
+            }
+            People.GetComponent<SpriteRenderer>().sprite =  sprites[4];
+            Background.GetComponent<SpriteRenderer>().sprite =  sprites[4];
             EffectActive = false;
         }
+    }
+
+    public bool IsEffectActive() {
+        return EffectActive;
+    }
+
+
+    public List<GameObject> GetAllChilds(GameObject Go)
+    {
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i< Go.transform.childCount; i++)
+        {
+            list.Add(Go.transform.GetChild(i).gameObject);
+        }
+        return list;
     }
 
     abstract protected void ApplyEffect ();
