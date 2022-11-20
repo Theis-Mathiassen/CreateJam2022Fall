@@ -121,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
+        y: 480
         width: 128
         height: 96
       alignment: 0
@@ -142,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 384
         width: 128
         height: 96
       alignment: 0
@@ -163,7 +163,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 288
         width: 128
         height: 96
       alignment: 0
@@ -184,7 +184,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 192
         width: 128
         height: 96
       alignment: 0
@@ -196,6 +196,48 @@ TextureImporter:
       bones: []
       spriteID: 90b63553a3cf7ea4f8a40d32c4514a3e
       internalID: 1678114128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CarriageParty-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 128
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f06042641bd4d974eb9a647105d467b9
+      internalID: -1597762252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CarriageParty-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd253f03397b409448497b3008a57246
+      internalID: 939680750
       vertices: []
       indices: 
       edges: []
@@ -212,9 +254,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       CarriageParty-Sheet_1: 459602475
+      CarriageParty-Sheet_5: 939680750
       CarriageParty-Sheet_3: 1678114128
       CarriageParty-Sheet_0: -573623819
       CarriageParty-Sheet_2: 48040357
+      CarriageParty-Sheet_4: -1597762252
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
