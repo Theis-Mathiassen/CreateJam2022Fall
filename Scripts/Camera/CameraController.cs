@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public bool Follow = true;
     public Transform Target;
     public float Softness = 1f;
     public Vector3 ConstantOffSet = new Vector3(3, 3, 0);
@@ -26,14 +27,17 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TargetOffset = ConstantOffSet;
-        if (UseMoveBasedOffset) {
-            TargetOffset.x = TargetOffset.x + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.x * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
-            TargetOffset.y = TargetOffset.y + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.y * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
+        if (Follow) {
+
+            TargetOffset = ConstantOffSet;
+            if (UseMoveBasedOffset) {
+                TargetOffset.x = TargetOffset.x + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.x * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
+                TargetOffset.y = TargetOffset.y + Mathf.Clamp(Target.gameObject.GetComponent<Rigidbody2D>().velocity.y * MoveBasedOffsetMultiplier, -MaxMoveBasedOffset, MaxMoveBasedOffset);
+            }
+            currentOffset = currentOffset + ((TargetOffset-currentOffset) * OffsetSoftness);
+            Vector3 diff = (Target.position+currentOffset)-transform.position;
+            diff.z = 0;
+            transform.position += diff * Softness;
         }
-        currentOffset = currentOffset + ((TargetOffset-currentOffset) * OffsetSoftness);
-        Vector3 diff = (Target.position+currentOffset)-transform.position;
-        diff.z = 0;
-        transform.position += diff * Softness;
     }
 }

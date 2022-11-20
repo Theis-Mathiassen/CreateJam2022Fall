@@ -23,7 +23,7 @@ abstract public class Carriage : MonoBehaviour
     protected virtual void Start()
     {
         sprites = Resources.LoadAll<Sprite>("CarriageParty-Sheet");
-        print(sprites);
+        //print(sprites);
         List<GameObject> children = GetAllChilds(this.gameObject);
         People = children[0];
         Background = children[1];
@@ -75,7 +75,7 @@ abstract public class Carriage : MonoBehaviour
 
         if (EffectActive == true) {
             foreach(AudioSource AS in GetComponents<AudioSource>()) {
-                print("Playing");
+                //print("Playing");
                 AS.Stop();
             }
             People.GetComponent<SpriteRenderer>().sprite =  sprites[4];

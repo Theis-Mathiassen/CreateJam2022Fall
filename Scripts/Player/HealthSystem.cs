@@ -20,11 +20,11 @@ public class HealthSystem : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        print(rb);
+        //print(rb);
         GameObject prev = null;
         for (int i = 0; i < 5; i++) {
             Vector3 pos = transform.position + new Vector3(-CarriageOffset * i - firstCarriageOffset, 0, 0);
-            print(pos);
+            //print(pos);
             GameObject current = GameObject.Instantiate(CarriagePrefab, pos, new Quaternion());
             carriages.Add(current);
             if (i == 0) {

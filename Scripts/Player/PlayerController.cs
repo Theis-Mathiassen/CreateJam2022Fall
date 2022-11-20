@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
 
     private float moveAxis = 0;
 
-
+    public bool Finish = false;
     //Jump
     public float JumpPower = 15;
     private bool isGrounded = true;
+    private bool CanJump = true;
 
     //Engine power
     private float _EnginePower;
@@ -45,15 +46,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddForce(new Vector2(moveAxis * EnginePower * EnginePowerMultiplier * Time.deltaTime, 0));
-        EnginePower -= EngineEfficiency;
-        steamPowerBar.SetSteamPower(EnginePower);
-        SteamProgress += EnginePower/10;
+        if (Finish == false) {
+
+            rb.AddForce(new Vector2(moveAxis * EnginePower * EnginePowerMultiplier * Time.deltaTime, 0));
+            EnginePower -= EngineEfficiency;
+            steamPowerBar.SetSteamPower(EnginePower);
+            SteamProgress += EnginePower/10;
+        //movementInput = movement.action
+        }
+        else
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            print(rb.velocity);
+            rb.velocity.Set(0, 0);
+            if (transform.position.y < -3.85) {
+                rb.MovePosition(new Vector2(transform.position.x + 0.05f, transform.position.y));
+            } else 
+            {
+                rb.MovePosition(new Vector2(transform.position.x, transform.position.y - 0.1f));
+            }
+            
+        }
         if (SteamProgress > 1) {
             GameObject.Instantiate(Resources.Load<GameObject>("Steam"), transform.position + new Vector3(0.3f,0.4f,0), new Quaternion());
             SteamProgress -= 1f;
         }
-        //movementInput = movement.action
     }
 
     //[SerializeField]
@@ -71,9 +88,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Jump (InputAction.CallbackContext ctx) {
-        if (ctx.performed && isGrounded) {
+
+        if (ctx.performed && CanJump && (Finish == false)) {
             rb.AddForce(new Vector2(0, JumpPower));
-            isGrounded = false;
+            CanJump = false;
         }
     }
 
@@ -85,6 +103,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            CanJump = true;
         }
         
     }
@@ -94,6 +113,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            CanJump = true;
         }
         
     }
@@ -102,7 +122,7 @@ public class PlayerController : MonoBehaviour
         //print("Exited");
         if (collision.gameObject.CompareTag("Ground"))
         {
-            //isGrounded = false;
+            isGrounded = false;
         }
         //print(isGrounded);
     }
