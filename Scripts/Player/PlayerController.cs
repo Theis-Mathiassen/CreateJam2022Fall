@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private float SteamProgress;
     public SteamPowerBar steamPowerBar;
     private Rigidbody2D rb;
     void Awake(){
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector2(moveAxis * EnginePower * EnginePowerMultiplier * Time.deltaTime, 0));
         EnginePower -= EngineEfficiency;
         steamPowerBar.SetSteamPower(EnginePower);
+        SteamProgress += EnginePower/10;
+        if (SteamProgress > 1) {
+            GameObject.Instantiate(Resources.Load<GameObject>("Steam"), transform.position + new Vector3(0.3f,0.4f,0), new Quaternion());
+            SteamProgress -= 1f;
+        }
         //movementInput = movement.action
     }
 

@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steamPowerBar: {fileID: 0}
-  JumpPower: 450
+  JumpPower: 300
   EnginePowerMultiplier: 9000
   EngineEfficiency: 0.0002
   AddPowerMultiplier: 0.05

@@ -7,6 +7,8 @@ public class BoosterCarriage : Carriage
     protected override void ApplyEffect()
     {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(5, 0));
+        if (Time.frameCount % 10 == 0)
+            GameObject.Instantiate(Resources.Load<GameObject>("Steam"), transform.position, new Quaternion());
     }
 
     // Start is called before the first frame update
