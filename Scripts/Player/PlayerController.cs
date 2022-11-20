@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private float SteamProgress;
     public SteamPowerBar steamPowerBar;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     void Awake(){
         
     }
@@ -56,15 +56,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            print(rb.velocity);
-            rb.velocity.Set(0, 0);
-            if (transform.position.y < -3.85) {
-                rb.MovePosition(new Vector2(transform.position.x + 0.05f, transform.position.y));
-            } else 
-            {
-                rb.MovePosition(new Vector2(transform.position.x, transform.position.y - 0.1f));
-            }
+            
             
         }
         if (SteamProgress > 1) {

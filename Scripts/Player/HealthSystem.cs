@@ -22,7 +22,7 @@ public class HealthSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //print(rb);
         GameObject prev = null;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             Vector3 pos = transform.position + new Vector3(-CarriageOffset * i - firstCarriageOffset, 0, 0);
             //print(pos);
             GameObject current = GameObject.Instantiate(CarriagePrefab, pos, new Quaternion());
@@ -31,8 +31,13 @@ public class HealthSystem : MonoBehaviour
                 current.AddComponent<BoosterCarriage>();
                 current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = rb;
-            } else {
-                current.AddComponent<BoosterCarriage>();
+            } else if(i==1) {
+                current.AddComponent<PartyCarriage>();
+                current.GetComponent<Carriage>().Player = this.gameObject;
+                current.GetComponent<HingeJoint2D>().connectedBody = prev.GetComponent<Rigidbody2D>();
+            }
+             else if(i==2) {
+                current.AddComponent<NitrogenCarriage>();
                 current.GetComponent<Carriage>().Player = this.gameObject;
                 current.GetComponent<HingeJoint2D>().connectedBody = prev.GetComponent<Rigidbody2D>();
             }
@@ -61,11 +66,12 @@ public class HealthSystem : MonoBehaviour
 
 
             } else {
-
-                GameObject carriage = carriages[carriages.Count - 1];
-                carriages.Remove(carriage);
-                LastDamaged = Time.time;
-                ExplodeCarriage(carriage);
+                if (carriages.Count > 0) {
+                    GameObject carriage = carriages[carriages.Count - 1];
+                    carriages.Remove(carriage);
+                    LastDamaged = Time.time;
+                    ExplodeCarriage(carriage);
+                }
             }
         }
     }
