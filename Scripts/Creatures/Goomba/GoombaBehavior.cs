@@ -42,7 +42,7 @@ public class GoombaBehavior : MonoBehaviour
         float y = 0;
         if(rand < 5 && Mathf.Abs(rb.velocity.y) <= 0.02)
         {
-            y = 50;
+            y = 30;
         }
 
         rb.AddForce(new Vector2(Direction * Speed, y));
@@ -56,11 +56,11 @@ public class GoombaBehavior : MonoBehaviour
         }
 
         float y = collision.GetContact(collision.contactCount - 1).normal.normalized.y;
-        print(y.ToString());
+        
         if (y <= -0.95)
         {
-            Kill();
             print("kill");
+            Kill();
         } else
         {
             print("dmg");
