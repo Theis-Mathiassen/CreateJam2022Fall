@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -49,11 +50,10 @@ public class HealthSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y > -2){
+        if (Random.Range(0, 300) == 0) {
             if (IsEffectActive() == false) {
                 ApplyRandomCarriageEffect();
             }
-            TakeDamage();
         }
     }
 
@@ -63,7 +63,7 @@ public class HealthSystem : MonoBehaviour
             if (carriages.Count == 0) {
                 //Destroy(this.gameObject);
                 //Gameover
-
+                SceneManager.LoadScene("StartMenu");
 
             } else {
                 if (carriages.Count > 0) {
@@ -71,6 +71,9 @@ public class HealthSystem : MonoBehaviour
                     carriages.Remove(carriage);
                     LastDamaged = Time.time;
                     ExplodeCarriage(carriage);
+                }
+                else {
+                    SceneManager.LoadScene("StartMenu");
                 }
             }
         }
